@@ -20,19 +20,10 @@ public class Workout {
 		return this.sets + " sets of " + this.reps + " reps of " + this.name + " @ " + this.weight + " lbs";
 	}
 	
-	public double forceExertedPerSet() {
-		return this.weight * this.reps;
-	}
 	
 	public double forceExerted() {
 		return this.weight * this.sets * this.reps;
 	}
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
+	
 }

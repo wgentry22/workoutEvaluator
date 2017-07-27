@@ -13,9 +13,11 @@ public class WorkoutEvaluator {
 			System.out.println("What is your name?");
 			String name = in.nextLine();
 			//System.out.println("Thank you for using the Workout Evaluator, " + name);
-			System.out.println("How much do you weigh?");
-			double weight = in.nextDouble();
-			user = new User(name, weight);
+			System.out.println("How much do you weigh? (lbs)");
+			int weight = in.nextInt();
+			System.out.println("How tall are you? (inches)");
+			int height = in.nextInt();
+			user = new User(name, weight, height);
 			System.out.println("Is the following information correct? Please enter yes or no");
 			System.out.println(user);
 			String input = in.next();
@@ -81,17 +83,11 @@ public class WorkoutEvaluator {
 		//System.out.println("Thank you for choosing the Workout Evaluator.");
 		User user = WorkoutEvaluator.getUserInfo();
 		user.userWorkout = WorkoutEvaluator.getWorkoutInfo();
+		user.analyzeBMI();
+		//user.percentOfBodyWeight();
 		user.workoutSummary();
 		user.forceSummary();
 		user.analyzeWorkout();
 	}
 	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		//getWorkoutInfo();
-	}
-
 }
