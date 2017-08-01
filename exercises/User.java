@@ -16,6 +16,8 @@ public class User {
 		this.userWorkout = new ArrayList<Workout>();
 	}
 	
+	
+	
 	public String toString() {
 		return this.userName + ": " + inchesToFeet(this.userHeight) + ", " + this.userWeight + " lbs";
 	}
