@@ -7,13 +7,16 @@ public class User {
 	protected String userName;
 	protected int userWeight; //in pounds
 	protected int userHeight; //in inches
+	protected String userIntensity;
 	public ArrayList<Workout> userWorkout;
+	public ArrayList<ArrayList<Workout>> wkArr;
 	
 	public User(String userName, int userWeight, int userHeight) {
 		this.userName = userName;
 		this.userWeight = userWeight;
 		this.userHeight = userHeight;
 		this.userWorkout = new ArrayList<Workout>();
+		this.wkArr = new ArrayList<ArrayList<Workout>>();
 	}
 	
 	
@@ -21,6 +24,61 @@ public class User {
 	public String toString() {
 		return this.userName + ": " + inchesToFeet(this.userHeight) + ", " + this.userWeight + " lbs";
 	}
+	
+	public String printCeption() {
+		String str = "";
+		for (int i = 0; i < this.wkArr.size(); i++) {
+			int k = 0;
+			str += this.wkArr.get(i).get(k).name + ":\n";
+			for (int j = k; j < this.wkArr.get(i).size(); j++) {
+				str += "\t" + this.wkArr.get(i).get(j).reps + " @ " + this.wkArr.get(i).get(j).weight + " lbs " + percentOfBodyWeightLifted(this.wkArr.get(i).get(j)) + "\n";
+			}
+		}
+		return str;
+	}
+	
+	
+	public void evaluateWorkout() {
+		System.out.println("Analyzing workout.......\n\n\n\n\n");
+		System.out.println("Workout Summary");
+		System.out.println(this.printCeption());
+		String percentSign = "%";
+		
+		double intensityScore = 0;
+		int size = 0;
+		for (int i = 0; i < this.wkArr.size(); i++) {
+			for (int j = 0; j < this.wkArr.get(i).size(); j++) {
+				intensityScore += (double) ((this.wkArr.get(i).get(j).weight / this.userWeight) * 100);
+				size++;
+			}
+		}
+		double finalScore = intensityScore / size;
+		System.out.printf("Average Percentage of Body Weight used per Exercise Repetition: %.2f%s\n", finalScore, percentSign);
+		String evaluatedIntensity;
+		if (finalScore < 50) {
+			evaluatedIntensity = "moderate";
+		} else if (finalScore > 50 && finalScore < 100) {
+			evaluatedIntensity = "intense";
+		} else {
+			evaluatedIntensity = "BEAST MODE";
+		}
+		
+		
+		System.out.println("\n\n" + this.userName + ", you thought your workout was " + this.userIntensity);
+		if (evaluatedIntensity.equals(this.userIntensity)) {
+			System.out.print("And we agree-- ");
+			if (evaluatedIntensity.equals("moderate")) {
+				System.out.println("moderate. You could stand to push more weight per exercise based on your body weight.");
+			} else if (evaluatedIntensity.equals("intense")) {
+				System.out.println("intense! You should be proud of yourself.");
+			} else if (evaluatedIntensity.equals("BEAST MODE")) {
+				System.out.println("BEAST MODE!!! You absolutely crushed this workout!!");
+			}
+		}
+	}
+	
+	
+	
 	
 	public String inchesToFeet(int height) {
 		int inches = height % 12;
@@ -41,8 +99,10 @@ public class User {
 		return (this.userWeight / (heightSquared)) * 703; 
 	}
 	
-	public double percentOfBodyWeightLifted(Workout w) {
-		return w.weight / this.userWeight;
+	public String percentOfBodyWeightLifted(Workout w) {
+		double per =  (w.weight / this.userWeight) * 100;
+		String percentSign = "%";
+		return String.format("(%.2f%s of body weight per Repetition)", per, percentSign);
 	}
 	
 	
@@ -68,15 +128,6 @@ public class User {
 		System.out.println("\nFor a grand total of " + total + " lbs\n");
 	}
 	
-	public void analyzeWorkout() {
-		double total = 0;
-		
-		for (int i = 0; i < this.userWorkout.size(); i++) {
-			total += userWorkout.get(i).forceExerted();
-		}
-		double analyze = total / this.userWeight;
-		System.out.printf("You exerted %.2f times your body weight!\n", analyze);
-	}
 	
 	public void analyzeBMI() {
 		double bmi = this.calculateBMI();
@@ -94,7 +145,6 @@ public class User {
 		System.out.printf("Calculated BMI: %.2f", bmi);
 		System.out.println("(" + status + ")");
 	}
-	
 	
 	public void percentOfBodyWeight() {
 		double percent;
