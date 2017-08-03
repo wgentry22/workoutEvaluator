@@ -48,17 +48,16 @@ public class WorkoutEvaluator {
 		System.out.println("Would you rate your workout as moderate (1), intense (2), or BEAST MODE (3)?");
 		do {
 			
-			if (input.hasNextInt()) {
-				int n = input.nextInt();
-				
+			try {
+				int n = Integer.parseInt(input.nextLine());
 				if (n == 1 || n == 2 || n == 3) {
 					intensity = WorkoutEvaluator.intToIntensity(n);
-					
 					incorrect = false;
+				} else {
+					n /= 0;
 				}
-			} else {
+			} catch (Exception e) {
 				System.out.println("Please select 1, 2, or 3");
-				//incorrect = true;
 			}
 			
 		} while(incorrect); 
@@ -84,6 +83,7 @@ public class WorkoutEvaluator {
 		
 		System.out.println("How many exercises did you complete?");
 		int numExercises = in.nextInt();
+		System.out.println();
 			for (int i = 0; i < numExercises; i++) {
 				//int k = ++i;
 				System.out.println("What was the name of Exercise " + (i + 1) + "?");

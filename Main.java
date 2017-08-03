@@ -9,7 +9,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		//WorkoutEvaluator.program();
 		
-		WorkoutEvaluator.program();
+		User user = new User("Gtrain", 190, 74);
+		user.userIntensity = WorkoutEvaluator.workoutIntensity();
+		System.out.println(user.userIntensity);
 	}
 
 }

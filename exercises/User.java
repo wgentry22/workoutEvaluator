@@ -7,7 +7,7 @@ public class User {
 	protected String userName;
 	protected int userWeight; //in pounds
 	protected int userHeight; //in inches
-	protected String userIntensity;
+	public String userIntensity;
 	public ArrayList<Workout> userWorkout;
 	public ArrayList<ArrayList<Workout>> wkArr;
 	
@@ -54,6 +54,7 @@ public class User {
 		}
 		double finalScore = intensityScore / size;
 		System.out.printf("Average Percentage of Body Weight used per Exercise Repetition: %.2f%s\n", finalScore, percentSign);
+		System.out.println("For a total of " + size + " reps");
 		String evaluatedIntensity;
 		if (finalScore < 50) {
 			evaluatedIntensity = "moderate";
