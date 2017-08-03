@@ -46,6 +46,7 @@ public class WorkoutEvaluator {
 		String intensity = null;
 		Scanner input = new Scanner(System.in);
 		System.out.println("Would you rate your workout as moderate (1), intense (2), or BEAST MODE (3)?");
+		System.out.println("Please select 1, 2, or 3");
 		do {
 			
 			try {
