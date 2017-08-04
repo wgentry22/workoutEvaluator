@@ -7,31 +7,58 @@ public class WorkoutEvaluator {
 	
 	public static User getUserInfo() {
 		Scanner in = new Scanner(System.in);
-		boolean incorrect;
+		boolean incorrect = true;
+		boolean wCorrect = true;
+		boolean hCorrect = true;
+		boolean finalCheck = true;
+		
 		User user;
 		
 		do {
 			System.out.println("What is your name?");
 			String name = in.nextLine();
+			user = new User(name);
 			//System.out.println("Thank you for using the Workout Evaluator, " + name);
-			System.out.println("What is your weight? (lbs)");
-			int weight = in.nextInt();
-			System.out.println("What is your height? (inches)");
-			int height = in.nextInt();
-			user = new User(name, weight, height);
-			System.out.println("Is the following information correct? Please enter Yes or No");
-			System.out.println(user);
-			String input = in.next();
-			if (input.toLowerCase().equals("yes")) {
-				incorrect = false;
-				//in.close();
-				
-			} else if (input.toLowerCase().equals("no")) {
-				incorrect = true;
-			} else {
-				System.out.println("Please enter yes or no.");
-				incorrect = true;
-			}
+			do {	
+				try {	
+					System.out.println("What is your weight? (lbs)");
+					int weight = Integer.parseInt(in.nextLine());
+					user.setWeight(weight);
+					wCorrect = false;
+					} catch (Exception e) {
+					  System.out.println("Please enter an integer");
+				}
+			} while (wCorrect);
+			
+			do {
+				try {
+					System.out.println("What is your height? (inches)");
+					int height = Integer.parseInt(in.nextLine());
+					user.setHeight(height);
+					hCorrect = false;
+				} catch (Exception e) {
+					System.out.println("Please enter an integer");
+				}
+			} while (hCorrect);
+			
+			do {
+				finalCheck = true;
+				System.out.println("Is the following information correct? Please enter Yes or No");
+				System.out.println(user);
+				String input = in.next();
+				if (input.toLowerCase().equals("yes")) {
+					incorrect = false;
+					finalCheck = false;
+					//in.close();
+				} else if (input.toLowerCase().equals("no")) {
+					in.nextLine();
+					finalCheck = false;
+					
+				} else {
+					System.out.println("Invalid Input");
+					in.nextLine();
+				}
+			} while (finalCheck);
 		} while (incorrect);
 		
 		user.userIntensity = WorkoutEvaluator.workoutIntensity();

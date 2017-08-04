@@ -19,7 +19,9 @@ public class User {
 		this.wkArr = new ArrayList<ArrayList<Workout>>();
 	}
 	
-	
+	public User(String userName) {
+		this.userName = userName;
+	}
 	
 	public String toString() {
 		return this.userName + ": " + inchesToFeet(this.userHeight) + ", " + this.userWeight + " lbs";
@@ -37,6 +39,13 @@ public class User {
 		return str;
 	}
 	
+	public void setWeight(int w) {
+		this.userWeight = w;
+	}
+	
+	public void setHeight(int h) {
+		this.userHeight = h;
+	}
 	
 	public void evaluateWorkout() {
 		System.out.println("Analyzing workout.......\n\n\n\n\n");
@@ -75,6 +84,8 @@ public class User {
 			} else if (evaluatedIntensity.equals("BEAST MODE")) {
 				System.out.println("BEAST MODE!!! You absolutely crushed this workout!!");
 			}
+		} else {
+			System.out.println("And we disagree-- we thought your workout was " + evaluatedIntensity);
 		}
 	}
 	
